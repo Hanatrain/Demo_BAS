@@ -1,0 +1,33 @@
+/*****************************
+
+Procedure:
+
+Input -
+
+IP_FROM_CREATION_DATE
+
+Logic -
+
+Uses ADD_DAYS SQL function to add 7 days to the IP_FROM_CREATION_DATE
+
+Output -
+
+Returns a table with order data ranging from IP_FROM_CREATION_DATE to IP_FROM_CREATION_DATE + 7 .
+
+****************************/
+PROCEDURE "P_CALC_DATE"(
+    IN IP_FROM_CREATION_DATE STRING,
+    OUT CALCULATEDDATE STRING
+  ) 
+  LANGUAGE SQLSCRIPT 
+  SQL SECURITY INVOKER 
+  --DEFAULT SCHEMA <default_schema_name>
+  READS SQL DATA AS 
+BEGIN 
+  /*************************************
+  
+  Write your procedure logic
+  
+  *************************************/
+  CALCULATEDDATE := add_days(:IP_FROM_CREATION_DATE, 10);
+END

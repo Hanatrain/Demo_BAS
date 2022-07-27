@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CCV_Sales_Intersect" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CCV_Sales_Intersect.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SALES_DATA">
+    <resourceUri>SALES_DATA</resourceUri>
+  </DataSource>
+  <DataSource id="SALESORDER_ERP">
+    <resourceUri>SALESORDER_ERP</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ERP">
+    <viewAttributes>
+      <viewAttribute id="SALESORDERID"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="AMOUNT"/>
+      <viewAttribute id="SOURCE"/>
+      <viewAttribute id="PRODUCTID"/>
+      <viewAttribute id="PRODUCTCATEGORY"/>
+      <viewAttribute id="SALESYEAR"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SALES_DATA"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="EXT">
+    <viewAttributes>
+      <viewAttribute id="SALESORDERID"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="GROSSAMOUNT"/>
+      <viewAttribute id="SOURCE"/>
+      <viewAttribute id="PRODUCTID"/>
+      <viewAttribute id="PRODUCTCATEGORY"/>
+      <viewAttribute id="SALESYEAR"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SALESORDER_ERP"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:IntersectView" id="Intersect_1">
+    <viewAttributes>
+      <viewAttribute id="SALESORDERID" aggregationType="sum"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="SOURCE"/>
+      <viewAttribute id="PRODUCTID"/>
+      <viewAttribute id="PRODUCTCATEGORY"/>
+      <viewAttribute id="SALESYEAR" aggregationType="sum"/>
+      <viewAttribute id="GROSSAMOUNT" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="ERP">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALESORDERID" source="SALESORDERID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SOURCE" source="SOURCE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCTID" source="PRODUCTID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCTCATEGORY" source="PRODUCTCATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALESYEAR" source="SALESYEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GROSSAMOUNT" source="AMOUNT"/>
+    </input>
+    <input node="EXT">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALESORDERID" source="SALESORDERID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SOURCE" source="SOURCE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCTID" source="PRODUCTID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCTCATEGORY" source="PRODUCTCATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALESYEAR" source="SALESYEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GROSSAMOUNT" source="GROSSAMOUNT"/>
+    </input>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Intersect_1">
+  <attributes>
+    <attribute id="SALESORDERID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Sales Order ID"/>
+      <keyMapping columnObjectName="Intersect_1" columnName="SALESORDERID"/>
+    </attribute>
+    <attribute id="CURRENCY" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Currency"/>
+      <keyMapping columnObjectName="Intersect_1" columnName="CURRENCY"/>
+    </attribute>
+    <attribute id="SOURCE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Source"/>
+      <keyMapping columnObjectName="Intersect_1" columnName="SOURCE"/>
+    </attribute>
+    <attribute id="PRODUCTID" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Product ID"/>
+      <keyMapping columnObjectName="Intersect_1" columnName="PRODUCTID"/>
+    </attribute>
+    <attribute id="PRODUCTCATEGORY" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Product Category"/>
+      <keyMapping columnObjectName="Intersect_1" columnName="PRODUCTCATEGORY"/>
+    </attribute>
+    <attribute id="SALESYEAR" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Sales Year"/>
+      <keyMapping columnObjectName="Intersect_1" columnName="SALESYEAR"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="GROSSAMOUNT" order="7" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Gross Amount"/>
+      <measureMapping columnObjectName="Intersect_1" columnName="GROSSAMOUNT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="ERP" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="-60" y="386"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="EXT" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="236" y="388"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Intersect_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="110" y="171"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
