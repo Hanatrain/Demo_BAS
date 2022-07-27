@@ -41,7 +41,7 @@
       <attributeRelationship parentAttribute="NAME" type="manual"/>
       <keyMapping columnObjectName="Join_1" columnName="DNUMBER"/>
     </attribute>
-    <attribute id="NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="NAME" order="2" displayAttribute="false" attributeHierarchyActive="false" hidden="true">
       <descriptions defaultDescription="NAME"/>
       <keyMapping columnObjectName="Join_1" columnName="NAME"/>
     </attribute>
